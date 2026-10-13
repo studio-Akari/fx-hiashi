@@ -1,7 +1,7 @@
 // 広告ユニットID（AdMobでこのアプリを登録したら、空欄に本番のIDを入れる）
 import { Platform } from 'react-native';
 const REAL = {
-  ios: { banner: '', inter: '' },
+  ios: { banner: 'ca-app-pub-5799580988110189/3752101140', inter: 'ca-app-pub-5799580988110189/1125937803' },
   android: { banner: '', inter: '' },
 };
 // テスト版（preview）と開発中は、Googleのテスト広告を出す
