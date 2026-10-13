@@ -43,6 +43,9 @@ export function Chart({ vals, dates, pair, height = 170, future = 0, reveal }: P
           {future > 0 && (
             <>
               <Rect x={L + pastW} y={T} width={pw - pastW} height={ph} fill={c.line} opacity={0.35} />
+              {Array.from({ length: future }, (_, k) => (
+                <Line key={'d' + k} x1={xf(k + 1)} x2={xf(k + 1)} y1={T} y2={T + ph} stroke={c.ink3} strokeWidth={1} opacity={0.25} />
+              ))}
               {!reveal && (
                 <SText x={L + pastW + (pw - pastW) / 2} y={T + ph / 2 + 6} fontSize={18} fill={c.ink3} fontFamily={F.numb} textAnchor="middle">?</SText>
               )}
