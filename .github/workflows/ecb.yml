@@ -1,0 +1,26 @@
+name: ECBレートを更新
+on:
+  schedule:
+    # ECBの公表は中欧時間16:00ごろ（夏14:00 UTC／冬15:00 UTC）。余裕を見て3回試す（平日のみ）
+    - cron: "35 14 * * 1-5"
+    - cron: "35 15 * * 1-5"
+    - cron: "35 17 * * 1-5"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tools/build_ecb.py
+      - name: 変わっていれば保存
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add ecb.json
+          git diff --cached --quiet || git commit -m "ECBレートを更新 $(date -u +%Y-%m-%d)"
+          git push
