@@ -45,9 +45,11 @@ export function RankBar({ m, st }: { m: Market; st: State }) {
   const mx = Math.max(streaks(st.quiz).max, streaks(judgedVotes(m, st).slice().reverse()).max);
   return (
     <View style={{ marginHorizontal: 20, marginTop: 2, marginBottom: 6, backgroundColor: c.surface, borderWidth: 1, borderColor: c.line, borderRadius: 14, paddingHorizontal: 14, paddingVertical: 10, gap: 5 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
-        <T f="disp" size={16} numberOfLines={1} style={{ flexShrink: 1 }}><T f="bold" size={10.5} color={c.coin}>称号　</T>{TITLES[i][1]}</T>
-        <T f="numb" size={15} color={c.coin}>{p.toLocaleString()}<T size={11} color={c.ink3}>p</T></T>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+        <T f="bold" size={10.5} lh={16} color={c.coin}>称号</T>
+        <T f="disp" size={16} lh={26} numberOfLines={1} style={{ flex: 1 }}>{TITLES[i][1]}</T>
+        <T f="numb" size={15} lh={24} color={c.coin}>{p.toLocaleString()}</T>
+        <T size={11} lh={24} color={c.ink3} style={{ marginLeft: -6 }}>p</T>
       </View>
       <View style={{ height: 5, borderRadius: 5, backgroundColor: c.line, overflow: 'hidden' }}>
         <View style={{ height: '100%', width: `${pct}%`, backgroundColor: c.coin }} />

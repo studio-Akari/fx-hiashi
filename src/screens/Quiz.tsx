@@ -35,10 +35,15 @@ export function Quiz({ m, onAnswered, onNext }: { m: Market; onAnswered: () => v
 
   const answer = () => {
     if (!q.dir || a) return;
-    const rec = { pair: p, base: q.t, dir: q.dir, memo: q.memo.trim(), out: (up === (q.dir === 'up') ? 'win' : 'lose') as 'win' | 'lose', diff: s[t + 1] - s[t], date: D[t + 1], at: Date.now() };
+    const rec = { pair: p, base: q.t, dir: q.dir, memo: q.memo, out: (up === (q.dir === 'up') ? 'win' : 'lose') as 'win' | 'lose', diff: s[t + 1] - s[t], date: D[t + 1], at: Date.now() };
     set(s0 => ({ ...s0, quiz: [...s0.quiz, rec], quizDone: (s0.quizDone || 0) + 1, quizCur: { ...s0.quizCur!, answered: rec } }));
     onAnswered();
   };
+  // 回答後もメモを書き足せる（記録にも反映）
+  const editMemo = (memo: string) => set(s0 => {
+    const cur = s0.quizCur!, ans = cur.answered!;
+    return { ...s0, quizCur: { ...cur, answered: { ...ans, memo } }, quiz: s0.quiz.map(r => (r.at === ans.at && r.base === ans.base ? { ...r, memo } : r)) };
+  });
   const next = () => onNext(() => set(s0 => ({ ...s0, quizCur: makeQuiz(m, s0) })));
 
   return (
@@ -53,17 +58,19 @@ export function Quiz({ m, onAnswered, onNext }: { m: Market; onAnswered: () => v
           <T f="numb" size={36} lh={44}>{fv(s[t], p)}</T>
           <T f="numb" size={13} color={d > 0 ? c.up : d < 0 ? c.down : c.ink2}>前日比 {fdiff(d, p)}</T>
         </View>
-        <Chart vals={s.slice(from, t + 1)} dates={D.slice(from, t + 1)} pair={p}
+        <Chart vals={s.slice(from, t + 1)} dates={D.slice(from, t + 1)} pair={p} future={5}
           reveal={a ? { vals: s.slice(t + 1, n5 + 1), dates: D.slice(t + 1, n5 + 1), up } : null} />
-        <Sub>{a ? `大きな${up ? '緑' : '赤'}の●が答え（${up ? '上がった' : '下がった'}）。黄色の線はその後5営業日の推移です。` : '右端が問題の日です。'}</Sub>
+        {a ? (
+          <Sub>大きな{up ? '緑' : '赤'}の<T size={11.5} color={up ? c.up : c.down}>●</T>が答え（{up ? '上がった' : '下がった'}）。<T size={11.5} color={c.coin}>黄色の線</T>はその後5営業日の推移です。</Sub>
+        ) : <Sub>灰色の欄に答えが出ます。</Sub>}
       </Panel>
 
       {!a ? (
         <Panel>
           <H3>{lab(D[t], true)}の翌営業日、レートは上がる？下がる？</H3>
           <DirPick value={q.dir} onChange={dir => upd({ dir })} sub="翌営業日" />
-          <Memo value={q.memo} onChange={memo => upd({ memo })} placeholder="例：3日連続で下げた後の反発" />
           <Primary label="回答する" onPress={answer} disabled={!q.dir} />
+          <Memo value={q.memo} onChange={memo => upd({ memo })} placeholder="例：3日連続で下げた後の反発" />
         </Panel>
       ) : (
         <Panel>
@@ -74,9 +81,9 @@ export function Quiz({ m, onAnswered, onNext }: { m: Market; onAnswered: () => v
             </View>
             <Sub>{a.dir === 'up' ? '▲ 上がる' : '▼ 下がる'}と回答 ／ {fv(s[t], p)} → {fv(s[t + 1], p)}（{fdiff(s[t + 1] - s[t], p)}）</Sub>
             <Sub>5営業日後（{lab(D[n5])}）：{fv(s[n5], p)}（{fdiff(s[n5] - s[t], p)}）</Sub>
-            {a.memo ? <T size={13} color={c.ink2}>メモ：{a.memo}</T> : null}
           </View>
           <Primary label="次の問題へ" onPress={next} />
+          <Memo value={a.memo} onChange={editMemo} placeholder="あとから書き足すこともできます" />
         </Panel>
       )}
 

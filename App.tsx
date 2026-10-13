@@ -103,7 +103,7 @@ function Main() {
     <View style={{ flex: 1, backgroundColor: c.screen }}>
       <StatusBar style={dark ? 'light' : 'dark'} />
       <View style={{ paddingTop: ins.top + 10, paddingLeft: 20, paddingRight: 16, paddingBottom: 6, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <T f="disp" size={18}>FX日足<T f="disp" size={18} color={c.coin}>過去問</T></T>
+        <View style={{ flexDirection: 'row' }}><T f="disp" size={18} lh={28}>FX日足</T><T f="disp" size={18} lh={28} color={c.coin}>過去問</T></View>
         <Pressable onPress={() => setSettings(true)} accessibilityLabel="設定"
           style={{ width: 44, height: 44, borderRadius: 22, borderWidth: 1, borderColor: c.line, backgroundColor: c.surface, alignItems: 'center', justifyContent: 'center' }}>
           <T size={20} color={c.ink}>⚙</T>

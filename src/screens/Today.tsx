@@ -81,8 +81,8 @@ export function Today({ m, toast, onResultSeen }: { m: Market; toast: (s: string
           ? `いつでも投票・変更できます。締切は${lab(target)}のレート公表（${jst(dl)}ごろ、あと${left(dl - now)}）で、その時点で結果が出ます。`
           : `${lab(target)}のレート公表を待っています。公表されると結果が出て、すぐ次の予想を受け付けます。`}</Sub>
         <DirPick value={dir} onChange={setDir} disabled={!open} sub={lab(target)} />
-        <Memo value={memo} onChange={setMemo} disabled={!open} placeholder="例：200日線を上抜けた。来週は日銀会合" />
         <Primary label={mine ? '投票を変更する' : '投票する'} onPress={submit} disabled={!open || !dir || !changed} />
+        <Memo value={memo} onChange={setMemo} disabled={!open} placeholder="例：200日線を上抜けた。来週は日銀会合" />
       </Panel>
 
       <Panel>

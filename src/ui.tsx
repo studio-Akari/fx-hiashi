@@ -70,7 +70,7 @@ export function Stat({ label, value, unit, note }: { label: string; value: strin
   return (
     <View style={{ flex: 1, backgroundColor: c.screen, borderRadius: 12, padding: 10, minWidth: 0 }}>
       <T f="bold" size={11} color={c.ink3} numberOfLines={1}>{label}</T>
-      <T f="numb" size={20} lh={26} numberOfLines={1}>{value}{unit ? <T size={12} color={c.ink3}>{unit}</T> : null}</T>
+      <T f="numb" size={20} lh={28} numberOfLines={1}>{value}{unit ? <T size={12} lh={28} color={c.ink3}>{unit}</T> : null}</T>
       <T size={11} color={c.ink3} numberOfLines={1}>{note}</T>
     </View>
   );
@@ -84,7 +84,7 @@ export function Seg<K extends string>({ items, value, onChange }: { items: [K, s
         return (
           <Pressable key={k} accessibilityRole="tab" accessibilityState={{ selected: on }} onPress={() => onChange(k)}
             style={{ flex: 1, paddingVertical: 8, borderRadius: 9, alignItems: 'center', backgroundColor: on ? c.surface : 'transparent' }}>
-            <T f={on ? 'bold' : 'body'} size={13} color={on ? c.ink : c.ink2}>{l}</T>
+            <T f={on ? 'bold' : 'body'} size={13} color={on ? c.coin : c.ink2}>{l}</T>
           </Pressable>
         );
       })}
