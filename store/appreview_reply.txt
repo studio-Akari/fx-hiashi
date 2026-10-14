@@ -1,0 +1,41 @@
+■ App Store Connect に貼る返信文（英語）
+（「App Reviewに関する情報」のメモ欄にも同じものを貼る）
+------------------------------------------------------------
+Hello App Review Team,
+
+Thank you for reviewing our app. Please find the requested information below. A screen recording captured on a physical iPhone running the latest iOS is attached.
+
+1. Screen recording
+The attached recording starts from launching the app and shows the typical user flow: the tracking explanation and App Tracking Transparency prompt, answering a "Past Questions" quiz (choosing up/down, viewing the answer and the following 5 business days), the title/points bar increasing, the "Today's Prediction" tab (submitting a vote and the result notification permission), the "History" tab with filters and notes, and the Settings screen (chart days, transfer code).
+The app has no account registration, no login, no user-generated content shared with other users, and no paid content or In-App Purchases.
+
+2. Purpose and target audience
+"FX日足過去問" (FX Daily Chart Quiz) is a practice app for people in Japan who trade or want to learn foreign exchange (FX). Users look at a real historical daily exchange-rate chart and guess whether the rate goes up or down on the next business day. The answer is shown immediately, together with the movement of the following 5 business days. Users can also make a daily prediction for the next business day, which is judged automatically when the new reference rate is published. The app helps users practice reading charts without risking money. It has no trading function and does not provide investment advice.
+
+3. How to use the app
+No login or sample files are required. After launch, the "過去問" (Past Questions) tab opens. Tap "上がる" (Up) or "下がる" (Down), then "回答する" (Answer) to see the result. Tap "次の問題へ" (Next) for a new question. The "今日の予想" (Today's Prediction) tab lets users vote on the next business day. The "記録" (History) tab shows past answers and notes. Settings (gear icon, top right) let users change the number of chart days and export/import a transfer code for device migration.
+
+4. External services
+- European Central Bank (ECB) euro foreign exchange reference rates: the source of all exchange-rate data. The data is downloaded once per business day by our own GitHub Actions job and served as a static JSON file on GitHub Pages (https://studio-akari.github.io/fx-hiashi/ecb.json). The app only downloads this file. Historical data is also bundled in the app.
+- Google AdMob (Google Mobile Ads SDK and the User Messaging Platform): displays banner and interstitial ads and handles ad consent.
+- Apple local notifications: notify the user when the daily prediction result is available. No push server is used.
+All user records and notes are stored only on the device and are never sent to any server. The app uses no AI services, no authentication services and no payment processors.
+
+5. Regional differences
+The app is distributed only in Japan. The app works the same for all users; there are no regional differences in features or content.
+
+6. Regulated industry / third-party material
+The app is not a financial service. It does not offer trading, brokerage, or investment advice, and this is stated in the app and in the description. The exchange rates are the ECB's public euro reference rates. The ECB permits free reuse of this information provided the source is cited; the app cites "European Central Bank (ECB)" as the source on every screen and in Settings. Rates for non-euro pairs (e.g. USD/JPY) are calculated from the ECB rates, and this is also stated. ECB copyright and reuse policy: https://www.ecb.europa.eu/services/disclaimer/html/index.en.html
+
+Thank you,
+studio Akari
+------------------------------------------------------------
+
+
+■ 日本語訳（確認用・送らない）
+1. 画面録画：実機・最新iOSで、起動から操作の流れ（トラッキングの説明と確認、過去問の回答と答え・その後5日間の表示、称号ポイントの増加、今日の予想の投票と通知の許可、記録タブの絞り込みとメモ、設定画面）を録画して添付。アカウント登録・ログイン・他人と共有する投稿・有料機能・アプリ内課金はなし。
+2. 目的と対象：FXをしている、または学びたい日本の人向けの練習アプリ。実際の過去の日足チャートを見て翌営業日の上下を当て、答えとその後5営業日の動きをすぐ表示。毎日の予想もでき、新しい参照レートの公表で自動判定。お金をかけずにチャートを読む練習ができる。取引機能はなく、投資助言もしない。
+3. 使い方：ログインやサンプルファイルは不要。起動すると過去問タブ。上がる／下がるを選んで回答。次の問題へで次へ。今日の予想タブで翌営業日に投票。記録タブで過去の回答とメモ。右上の歯車の設定で表示日数の変更と引き継ぎコード。
+4. 外部サービス：ECBの参照レート（自分のGitHub Actionsが毎営業日取得し、GitHub Pagesに置いたファイルをアプリが読むだけ。過去分はアプリにも同梱）、Google AdMob（広告と同意画面）、iPhoneのローカル通知。記録やメモは端末内だけ。AI・ログイン・決済サービスは使っていない。
+5. 地域差：日本だけで配信。全員同じように動き、地域による違いはない。
+6. 規制・第三者素材：金融サービスではなく、取引・仲介・投資助言はしない（アプリ内と説明文に明記）。レートはECBの公開参照レートで、ECBは出典を書けば自由に再利用してよいと定めている。全画面と設定に出典「欧州中央銀行（ECB）」を表示。ユーロ以外のペアはECBのレートから計算した値と明記。
