@@ -18,7 +18,7 @@ import { Log } from './src/screens/Log';
 import { Quiz } from './src/screens/Quiz';
 import { Settings } from './src/screens/Settings';
 import { Today } from './src/screens/Today';
-import { StoreProvider, useStore } from './src/store';
+import { adDue, StoreProvider, useStore } from './src/store';
 import { T, ThemeProvider, useTheme } from './src/theme';
 import { Seg } from './src/ui';
 
@@ -87,7 +87,7 @@ function Main() {
 
   const onNext = (go: () => void) => {
     const done = () => { go(); scroll.current?.scrollTo({ y: 0, animated: false }); };
-    if (st.quizDone > 0 && st.quizDone % 5 === 0) {
+    if (adDue(st)) {
       if (Platform.OS === 'web') setMockAd({ n: 3, done }); else showInter(done);
     } else done();
   };

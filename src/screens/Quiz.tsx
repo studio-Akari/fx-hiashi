@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { View } from 'react-native';
 import { Chart } from '../Chart';
 import { fdiff, fv, lab, Market, rate, same, streaks } from '../core';
-import { QuizCur, State, useStore } from '../store';
+import { countAnswer, QuizCur, State, useStore } from '../store';
 import { T, useTheme } from '../theme';
 import { DirPick, H3, Memo, Panel, Primary, Stat, Sub } from '../ui';
 import { PairPicker } from './common';
@@ -36,7 +36,7 @@ export function Quiz({ m, onAnswered, onNext }: { m: Market; onAnswered: () => v
   const answer = () => {
     if (!q.dir || a) return;
     const rec = { pair: p, base: q.t, dir: q.dir, memo: q.memo, out: (up === (q.dir === 'up') ? 'win' : 'lose') as 'win' | 'lose', diff: s[t + 1] - s[t], date: D[t + 1], at: Date.now() };
-    set(s0 => ({ ...s0, quiz: [...s0.quiz, rec], quizDone: (s0.quizDone || 0) + 1, quizCur: { ...s0.quizCur!, answered: rec } }));
+    set(s0 => countAnswer({ ...s0, quiz: [...s0.quiz, rec], quizDone: (s0.quizDone || 0) + 1, quizCur: { ...s0.quizCur!, answered: rec } }));
     onAnswered();
   };
   // 回答後もメモを書き足せる（記録にも反映）

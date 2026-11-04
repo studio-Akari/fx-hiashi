@@ -11,6 +11,8 @@ export type State = {
   quiz: QuizRec[];
   quizCur: QuizCur | null;
   quizDone: number;
+  adDay?: string;    // 広告の回数を数えている日（日本時間）
+  adToday?: number;  // その日に答えた過去問の数
   seen: Record<string, 1>;
   lastTitle?: number;
   notifId?: string | null;
@@ -20,6 +22,19 @@ export const DEFAULTS: State = {
   votes: {}, quiz: [], quizCur: null, quizDone: 0, seen: {}, notifId: null,
 };
 const KEY = 'fxhiashi.v1';
+
+// 全画面広告：その日の5問目で1回、そのあとは20問ごと。日付が変わると5問目から数え直す
+export const AD_FIRST = 5, AD_EVERY = 20;
+export const jstDay = (ms = Date.now()) => new Date(ms + 9 * 3600e3).toISOString().slice(0, 10);
+export function countAnswer(s: State): State {
+  const d = jstDay();
+  return { ...s, adDay: d, adToday: (s.adDay === d ? s.adToday || 0 : 0) + 1 };
+}
+export function adDue(s: State) {
+  if (s.adDay !== jstDay()) return false;
+  const n = s.adToday || 0;
+  return n === AD_FIRST || (n > AD_FIRST && (n - AD_FIRST) % AD_EVERY === 0);
+}
 
 type Ctx = { st: State; set: (f: (s: State) => State) => void; ready: boolean; replace: (s: State) => void };
 const C = createContext<Ctx>(null as any);
